@@ -1,690 +1,183 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portal Publikasi Artikel Ilmiah Mahasiswa &mdash; Platform penerbitan, indeksasi, dan diseminasi karya riset akademik mahasiswa secara terbuka dan terverifikasi.">
-  <meta name="keywords" content="artikel ilmiah, jurnal mahasiswa, riset teknologi, publikasi akademik, sains komputasi, open access">
-  <meta name="author" content="Tim Redaksi Portal Jurnal Mahasiswa">
-  <title>Portal Publikasi Artikel Ilmiah Mahasiswa &mdash; Platform Riset &amp; Inovasi Terbuka</title>
-  <style>
-    :root {
-      --primary-color: #0f2b48;
-      --primary-accent: #2563eb;
-      --secondary-accent: #38bdf8;
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --badge-bg: #eff6ff;
-      --badge-text: #1d4ed8;
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg-body);
-      color: var(--text-main);
-      line-height: 1.65;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Skip link for screen readers / accessibility */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 10px;
-      background: var(--primary-accent);
-      color: #ffffff;
-      padding: 8px 16px;
-      z-index: 100;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: top 0.2s ease;
-    }
-    .skip-link:focus {
-      top: 10px;
-    }
-
-    /* Header */
-    header {
-      background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a8a 100%);
-      color: #ffffff;
-      padding: 2.5rem 1.5rem;
-      border-bottom: 4px solid var(--secondary-accent);
-    }
-
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .header-branding h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.35rem;
-    }
-
-    .header-branding p {
-      font-size: 1.05rem;
-      color: #cbd5e1;
-      max-width: 750px;
-    }
-
-    /* Navigation */
-    nav {
-      background-color: #0b1f33;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 1.5rem;
-    }
-
-    .nav-list {
-      display: flex;
-      flex-wrap: wrap;
-      list-style: none;
-      gap: 0.5rem;
-    }
-
-    .nav-list a {
-      color: #e2e8f0;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      padding: 0.5rem 0.85rem;
-      border-radius: 6px;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      display: inline-block;
-    }
-
-    .nav-list a:hover,
-    .nav-list a:focus {
-      background-color: var(--primary-accent);
-      color: #ffffff;
-    }
-
-    /* Layout Wrapper */
-    .layout-wrapper {
-      max-width: 1200px;
-      width: 100%;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 2rem;
-      flex: 1;
-    }
-
-    @media (max-width: 900px) {
-      .layout-wrapper {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Main Content */
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .section-block {
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 1.75rem;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-
-    .section-header {
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .section-title {
-      font-size: 1.45rem;
-      color: var(--primary-color);
-      font-weight: 700;
-    }
-
-    .article-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    article {
-      background: #fdfdfd;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--primary-accent);
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    article:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.08);
-    }
-
-    article h3 {
-      font-size: 1.2rem;
-      color: #0f172a;
-      margin-bottom: 0.5rem;
-    }
-
-    article h3 a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    article h3 a:hover {
-      color: var(--primary-accent);
-      text-decoration: underline;
-    }
-
-    .meta-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .meta-info span {
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .abstract-text {
-      color: #334155;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-      text-align: justify;
-    }
-
-    .badge-tag {
-      background-color: var(--badge-bg);
-      color: var(--badge-text);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.25rem 0.6rem;
-      border-radius: 9999px;
-      display: inline-block;
-    }
-
-    .article-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 0.75rem;
-      border-top: 1px dashed var(--border-color);
-      font-size: 0.85rem;
-    }
-
-    .read-more-link {
-      font-weight: 600;
-      color: var(--primary-accent);
-      text-decoration: none;
-    }
-
-    .read-more-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Aside Sidebar */
-    aside {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .aside-widget {
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-
-    .aside-title {
-      font-size: 1.2rem;
-      color: var(--primary-color);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 0.5rem;
-    }
-
-    .journal-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-
-    .journal-links li {
-      border-bottom: 1px solid #f1f5f9;
-      padding-bottom: 0.75rem;
-    }
-
-    .journal-links li:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .journal-links a {
-      color: var(--primary-accent);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: block;
-      transition: color 0.2s ease;
-    }
-
-    .journal-links a:hover {
-      color: #1d4ed8;
-      text-decoration: underline;
-    }
-
-    .journal-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-top: 0.2rem;
-    }
-
-    /* Footer */
-    footer {
-      background-color: var(--primary-color);
-      color: #cbd5e1;
-      padding: 3rem 1.5rem 1.5rem;
-      margin-top: auto;
-      border-top: 4px solid var(--secondary-accent);
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .footer-col h4 {
-      color: #ffffff;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-
-    .footer-col p, .footer-col address {
-      font-style: normal;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .footer-col address a {
-      color: var(--secondary-accent);
-      text-decoration: none;
-    }
-
-    .footer-col address a:hover {
-      text-decoration: underline;
-    }
-
-    .cc-badge-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem;
-      border-radius: 8px;
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      text-align: center;
-      font-size: 0.85rem;
-      color: #94a3b8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal publikasi artikel ilmiah mahasiswa untuk berbagi hasil penelitian dan karya ilmiah.">
+    <title>Portal Publikasi Artikel Ilmiah Mahasiswa</title>
 </head>
+
 <body>
 
-  <!-- Aksesibilitas: Tautan Langsung ke Konten Utama -->
-  <a href="#main-content" class="skip-link">Langsung ke konten utama</a>
+    <header>
+        <h1>Portal Publikasi Artikel Ilmiah Mahasiswa</h1>
+        <p>
+            Wadah untuk berbagi artikel ilmiah, hasil penelitian,
+            dan karya akademik mahasiswa.
+        </p>
+    </header>
 
-  <!-- 1. HEADER UTAMA -->
-  <header role="banner">
-    <div class="header-container">
-      <div class="header-branding">
-        <h1>VERITAS &mdash; Jurnal Ilmiah Mahasiswa</h1>
-        <p>Portal Resmi Publikasi, Diseminasi, &amp; Repositori Karya Ilmiah Mahasiswa Terbuka (Open Access)</p>
-      </div>
-    </div>
-  </header>
+    <nav aria-label="Navigasi utama">
+        <ul>
+            <li><a href="#artikel-terbaru">Artikel Terbaru</a></li>
+            <li><a href="#artikel-populer">Artikel Populer</a></li>
+            <li><a href="#penelitian-mahasiswa">Penelitian Mahasiswa</a></li>
+            <li><a href="#portal-jurnal">Portal Jurnal</a></li>
+        </ul>
+    </nav>
 
-  <!-- 2. NAVIGASI UTAMA -->
-  <nav aria-label="Navigasi Utama Portal">
-    <div class="nav-container">
-      <ul class="nav-list">
-        <li><a href="#main-content">Beranda</a></li>
-        <li><a href="#section-teknologi">Informatika &amp; AI</a></li>
-        <li><a href="#section-rekayasa">Rekayasa &amp; Energi</a></li>
-        <li><a href="#section-komputasi">Sains &amp; Keamanan</a></li>
-        <li><a href="#jurnal-eksternal">Indeks Jurnal</a></li>
-        <li><a href="#informasi-kontak">Kontak Redaksi</a></li>
-      </ul>
-    </div>
-  </nav>
+    <main>
 
-  <!-- WRAPPER KONTEN UTAMA & ASIDE -->
-  <div class="layout-wrapper">
+        <section id="artikel-terbaru">
+            <h2>Artikel Terbaru</h2>
 
-    <!-- 3. KONTEN UTAMA (MAIN) -->
-    <main id="main-content" role="main">
+            <article>
+                <h3>Pemanfaatan Machine Learning untuk Deteksi Kebakaran</h3>
+                <p>
+                    <strong>Penulis:</strong> Nahdah Fauziah Chaidir
+                </p>
+                <p>
+                    Penelitian ini membahas pemanfaatan teknologi
+                    machine learning untuk membantu mendeteksi potensi
+                    kebakaran secara lebih cepat dan akurat.
+                </p>
+                <a href="#artikel-terbaru">Baca selengkapnya</a>
+            </article>
 
-      <!-- SECTION 1: Informatika & Kecerdasan Buatan -->
-      <section id="section-teknologi" class="section-block" aria-labelledby="heading-sec-1">
-        <div class="section-header">
-          <h2 id="heading-sec-1" class="section-title">Bidang Informatika &amp; Kecerdasan Buatan</h2>
-          <span class="badge-tag">2 Artikel Terverifikasi</span>
-        </div>
+            <article>
+                <h3>Pengembangan Sistem Informasi Akademik Berbasis Web</h3>
+                <p>
+                    <strong>Penulis:</strong> Andi Pratama
+                </p>
+                <p>
+                    Artikel ini membahas pengembangan sistem informasi
+                    akademik berbasis web untuk membantu mahasiswa dan
+                    tenaga akademik dalam mengelola informasi perkuliahan.
+                </p>
+                <a href="#artikel-terbaru">Baca selengkapnya</a>
+            </article>
+        </section>
 
-        <div class="article-grid">
-          <!-- Artikel 1.1 -->
-          <article aria-labelledby="art-title-1">
-            <h3 id="art-title-1">
-              <a href="#detail-art-1">Penerapan Algoritma Deep Learning untuk Deteksi Dini Penyakit Tanaman Padi Berbasis Citra Digital</a>
-            </h3>
-            <div class="meta-info">
-              <span><strong>Penulis:</strong>&nbsp;Ahmad Fauzan &amp; Siti Nurhaliza</span>
-              <span>&bull;</span>
-              <span><strong>Terbit:</strong>&nbsp;<time datetime="2026-02-15">15 Februari 2026</time></span>
-              <span>&bull;</span>
-              <span><strong>DOI:</strong>&nbsp;10.5281/zenodo.9482011</span>
-            </div>
-            <p class="abstract-text">
-              <strong>Abstrak:</strong> Penelitian ini mengeksplorasi arsitektur <em>Convolutional Neural Network</em> (CNN) dengan model transfer learning MobileNetV3 guna mengklasifikasikan patologi daun padi secara akurat &amp; efisien pada perangkat komputasi tepi. Akurasi pengujian mencapai 96.8&percnt; dengan latensi inferensi di bawah 45&nbsp;milidetik.
-            </p>
-            <div class="article-footer">
-              <span class="badge-tag">Kecerdasan Buatan &amp; Visi Komputer</span>
-              <a href="#detail-art-1" class="read-more-link">Baca Naskah Lengkap &rarr;</a>
-            </div>
-          </article>
+        <section id="artikel-populer">
+            <h2>Artikel Populer</h2>
 
-          <!-- Artikel 1.2 -->
-          <article aria-labelledby="art-title-2">
-            <h3 id="art-title-2">
-              <a href="#detail-art-2">Optimasi Jaringan Sensor Nirkabel Berbasis Internet of Things (IoT) pada Tata Kelola Smart Campus</a>
-            </h3>
-            <div class="meta-info">
-              <span><strong>Penulis:</strong>&nbsp;Rian Pratama &amp; Budi Santoso</span>
-              <span>&bull;</span>
-              <span><strong>Terbit:</strong>&nbsp;<time datetime="2026-02-22">22 Februari 2026</time></span>
-              <span>&bull;</span>
-              <span><strong>DOI:</strong>&nbsp;10.5281/zenodo.9482012</span>
-            </div>
-            <p class="abstract-text">
-              <strong>Abstrak:</strong> Makalah ini mengkaji efisiensi transmisi data protokol LoRaWAN dalam pemantauan konsumsi energi &amp; kualitas udara ruang kuliah. Pendekatan <em>Adaptive Data Rate</em> (ADR) terbukti mampu mereduksi kehilangan paket data hingga 18.4&percnt; serta memperpanjang masa pakai baterai node sensor.
-            </p>
-            <div class="article-footer">
-              <span class="badge-tag">Internet of Things &amp; Jaringan</span>
-              <a href="#detail-art-2" class="read-more-link">Baca Naskah Lengkap &rarr;</a>
-            </div>
-          </article>
-        </div>
-      </section>
+            <article>
+                <h3>Penerapan Artificial Intelligence dalam Pendidikan</h3>
+                <p>
+                    <strong>Penulis:</strong> Siti Rahma
+                </p>
+                <p>
+                    Artikel ini membahas penerapan artificial intelligence
+                    dalam mendukung proses pembelajaran dan meningkatkan
+                    pengalaman pendidikan bagi mahasiswa.
+                </p>
+                <a href="#artikel-populer">Baca selengkapnya</a>
+            </article>
 
-      <!-- SECTION 2: Rekayasa & Energi Terbarukan -->
-      <section id="section-rekayasa" class="section-block" aria-labelledby="heading-sec-2">
-        <div class="section-header">
-          <h2 id="heading-sec-2" class="section-title">Bidang Rekayasa &amp; Energi Terbarukan</h2>
-          <span class="badge-tag">2 Artikel Terverifikasi</span>
-        </div>
+            <article>
+                <h3>Analisis Keamanan Data pada Aplikasi Web</h3>
+                <p>
+                    <strong>Penulis:</strong> Muhammad Fadli
+                </p>
+                <p>
+                    Penelitian ini membahas beberapa aspek keamanan data
+                    pada aplikasi web serta pentingnya penerapan
+                    perlindungan data dalam sistem informasi.
+                </p>
+                <a href="#artikel-populer">Baca selengkapnya</a>
+            </article>
+        </section>
 
-        <div class="article-grid">
-          <!-- Artikel 2.1 -->
-          <article aria-labelledby="art-title-3">
-            <h3 id="art-title-3">
-              <a href="#detail-art-3">Analisis Efisiensi Panel Surya Fotovoltaik Menggunakan Sistem Pendingin Termoelektrik Berbantu Heat Pipe</a>
-            </h3>
-            <div class="meta-info">
-              <span><strong>Penulis:</strong>&nbsp;Dewi Anggraeni &amp; Hendra Wijaya</span>
-              <span>&bull;</span>
-              <span><strong>Terbit:</strong>&nbsp;<time datetime="2026-01-28">28 Januari 2026</time></span>
-              <span>&bull;</span>
-              <span><strong>DOI:</strong>&nbsp;10.5281/zenodo.9482013</span>
-            </div>
-            <p class="abstract-text">
-              <strong>Abstrak:</strong> Peningkatan suhu permukaan panel surya diketahui menurunkan keluaran daya fotovoltaik secara signifikan. Riset ini mengimplementasikan modul pendingin berbasis termoelektrik (Peltier) yang terintegrasi dengan <em>heat pipe</em>, menghasilkan penurunan temperatur kerja sebesar 11.2&deg;C dan kenaikan daya keluaran rata-rata 8.7&percnt;.
-            </p>
-            <div class="article-footer">
-              <span class="badge-tag">Energi Terbarukan &amp; Termal</span>
-              <a href="#detail-art-3" class="read-more-link">Baca Naskah Lengkap &rarr;</a>
-            </div>
-          </article>
+        <section id="penelitian-mahasiswa">
+            <h2>Penelitian Mahasiswa</h2>
 
-          <!-- Artikel 2.2 -->
-          <article aria-labelledby="art-title-4">
-            <h3 id="art-title-4">
-              <a href="#detail-art-4">Pemanfaatan Limbah Biomassa Cangkang Sawit sebagai Bahan Baku Bio-Briket Berkalori Tinggi</a>
-            </h3>
-            <div class="meta-info">
-              <span><strong>Penulis:</strong>&nbsp;Muhammad Rizky &amp; Lestari Putri</span>
-              <span>&bull;</span>
-              <span><strong>Terbit:</strong>&nbsp;<time datetime="2026-01-14">14 Januari 2026</time></span>
-              <span>&bull;</span>
-              <span><strong>DOI:</strong>&nbsp;10.5281/zenodo.9482014</span>
-            </div>
-            <p class="abstract-text">
-              <strong>Abstrak:</strong> Kajian eksperimental ini mengevaluasi pengaruh variasi konsentrasi perekat tepung tapioka terhadap karakteristik pembakaran bio-briket arang cangkang sawit. Nilai kalor optimal tercatat pada rasio 10&percnt; perekat, mencapai 6.420&nbsp;kkal/kg dengan kadar abu minimal 4.1&percnt;.
-            </p>
-            <div class="article-footer">
-              <span class="badge-tag">Teknik Kimia &amp; Lingkungan</span>
-              <a href="#detail-art-4" class="read-more-link">Baca Naskah Lengkap &rarr;</a>
-            </div>
-          </article>
-        </div>
-      </section>
+            <article>
+                <h3>Implementasi Internet of Things untuk Pemantauan Lingkungan</h3>
+                <p>
+                    <strong>Penulis:</strong> Ahmad Rizky
+                </p>
+                <p>
+                    Penelitian ini membahas penggunaan Internet of Things
+                    untuk mengumpulkan data lingkungan secara real-time
+                    menggunakan perangkat sensor.
+                </p>
+                <a href="#penelitian-mahasiswa">Baca selengkapnya</a>
+            </article>
 
-      <!-- SECTION 3: Sains Komputasi & Keamanan Siber -->
-      <section id="section-komputasi" class="section-block" aria-labelledby="heading-sec-3">
-        <div class="section-header">
-          <h2 id="heading-sec-3" class="section-title">Bidang Sains Komputasi &amp; Keamanan Siber</h2>
-          <span class="badge-tag">2 Artikel Terverifikasi</span>
-        </div>
-
-        <div class="article-grid">
-          <!-- Artikel 3.1 -->
-          <article aria-labelledby="art-title-5">
-            <h3 id="art-title-5">
-              <a href="#detail-art-5">Analisis Ketahanan Kriptografi Pascakuantum Berbasis Kisi (Lattice-Based) terhadap Serangan Kuantum</a>
-            </h3>
-            <div class="meta-info">
-              <span><strong>Penulis:</strong>&nbsp;Farhan Maulana &amp; Dian Sastro</span>
-              <span>&bull;</span>
-              <span><strong>Terbit:</strong>&nbsp;<time datetime="2026-02-05">05 Februari 2026</time></span>
-              <span>&bull;</span>
-              <span><strong>DOI:</strong>&nbsp;10.5281/zenodo.9482015</span>
-            </div>
-            <p class="abstract-text">
-              <strong>Abstrak:</strong> Seiring akselerasi komputasi kuantum, algoritma asimetris konvensional seperti RSA &amp; ECC terancam rentan terhadap algoritma Shor. Studi ini menguji ketahanan dan performa algoritma Kyber (ML-KEM) pada protokol TLS 1.3 dalam lingkungan simulasi jaringan berkecepatan tinggi.
-            </p>
-            <div class="article-footer">
-              <span class="badge-tag">Kriptografi &amp; Keamanan Informasi</span>
-              <a href="#detail-art-5" class="read-more-link">Baca Naskah Lengkap &rarr;</a>
-            </div>
-          </article>
-
-          <!-- Artikel 3.2 -->
-          <article aria-labelledby="art-title-6">
-            <h3 id="art-title-6">
-              <a href="#detail-art-6">Rancang Bangun Sistem Deteksi Intrusi (IDS) Real-Time Menggunakan Model Ensemble Random Forest</a>
-            </h3>
-            <div class="meta-info">
-              <span><strong>Penulis:</strong>&nbsp;Nabila Maharani &amp; Yoga Pratama</span>
-              <span>&bull;</span>
-              <span><strong>Terbit:</strong>&nbsp;<time datetime="2026-01-20">20 Januari 2026</time></span>
-              <span>&bull;</span>
-              <span><strong>DOI:</strong>&nbsp;10.5281/zenodo.9482016</span>
-            </div>
-            <p class="abstract-text">
-              <strong>Abstrak:</strong> Makalah ini mengusulkan model IDS adaptif untuk mengidentifikasi anomali serangan DDoS &amp; <em>port scanning</em> pada dataset CIC-IDS2017. Hasil pengujian menunjukkan nilai <em>F1-Score</em> sebesar 98.2&percnt; dengan rasio positif palsu (<em>false positive rate</em>) di bawah 0.8&percnt;.
-            </p>
-            <div class="article-footer">
-              <span class="badge-tag">Keamanan Jaringan &amp; Big Data</span>
-              <a href="#detail-art-6" class="read-more-link">Baca Naskah Lengkap &rarr;</a>
-            </div>
-          </article>
-        </div>
-      </section>
+            <article>
+                <h3>Analisis Data untuk Mendukung Pengambilan Keputusan</h3>
+                <p>
+                    <strong>Penulis:</strong> Nur Aisyah
+                </p>
+                <p>
+                    Artikel ini membahas pemanfaatan analisis data untuk
+                    menghasilkan informasi yang dapat digunakan dalam
+                    mendukung proses pengambilan keputusan.
+                </p>
+                <a href="#penelitian-mahasiswa">Baca selengkapnya</a>
+            </article>
+        </section>
 
     </main>
 
-    <!-- 4. ASIDE: DAFTAR JURNAL & PORTAL EKSTERNAL -->
-    <aside id="jurnal-eksternal" aria-labelledby="heading-aside">
-      <div class="aside-widget">
-        <h2 id="heading-aside" class="aside-title">Daftar Portal Jurnal Eksternal</h2>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
-          Tautan referensi &amp; pengindeksan ilmiah bereputasi nasional maupun internasional:
+    <aside id="portal-jurnal">
+        <h2>Portal Jurnal Eksternal</h2>
+        <p>
+            Berikut beberapa portal yang dapat digunakan untuk mencari
+            referensi dan publikasi ilmiah:
         </p>
 
-        <ul class="journal-links">
-          <li>
-            <a href="https://sinta.kemdikbud.go.id/" target="_blank" rel="noopener noreferrer">
-              SINTA &mdash; Science and Technology Index
-            </a>
-            <p class="journal-desc">Basis data &amp; pemeringkatan jurnal ilmiah nasional Indonesia.</p>
-          </li>
-          <li>
-            <a href="https://scholar.google.com/" target="_blank" rel="noopener noreferrer">
-              Google Scholar &mdash; Cendekia
-            </a>
-            <p class="journal-desc">Mesin pencari literatur akademik lintas disiplin ilmu global.</p>
-          </li>
-          <li>
-            <a href="https://garuda.kemdikbud.go.id/" target="_blank" rel="noopener noreferrer">
-              GARUDA &mdash; Garba Rujukan Digital
-            </a>
-            <p class="journal-desc">Portal penelusuran referensi ilmiah karya civitas akademika.</p>
-          </li>
-          <li>
-            <a href="https://doaj.org/" target="_blank" rel="noopener noreferrer">
-              DOAJ &mdash; Directory of Open Access Journals
-            </a>
-            <p class="journal-desc">Direktori independen jurnal internasional akses terbuka bermutu tinggi.</p>
-          </li>
-          <li>
-            <a href="https://ieeexplore.ieee.org/" target="_blank" rel="noopener noreferrer">
-              IEEE Xplore Digital Library
-            </a>
-            <p class="journal-desc">Repositori publikasi ilmiah teknik elektro, informatika, &amp; teknologi.</p>
-          </li>
-          <li>
-            <a href="https://www.sciencedirect.com/" target="_blank" rel="noopener noreferrer">
-              ScienceDirect &mdash; Elsevier
-            </a>
-            <p class="journal-desc">Platform global publikasi naskah saintifik dan buku teks ilmiah.</p>
-          </li>
+        <ul>
+            <li>
+                <a href="https://scholar.google.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Google Scholar
+                </a>
+            </li>
+
+            <li>
+                <a href="https://ieeexplore.ieee.org/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    IEEE Xplore
+                </a>
+            </li>
+
+            <li>
+                <a href="https://doaj.org/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    DOAJ
+                </a>
+            </li>
         </ul>
-      </div>
-
-      <div class="aside-widget">
-        <h3 style="font-size: 1.05rem; color: var(--primary-color); margin-bottom: 0.5rem; font-weight: 700;">
-          Panduan Penulisan &amp; Template
-        </h3>
-        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.75rem;">
-          Unduh pedoman format naskah standar IEEE &amp; APA 7<sup>th</sup> Edition untuk pengajuan artikel semester ini.
-        </p>
-        <a href="#unduh-template" class="badge-tag" style="text-decoration: none; padding: 0.4rem 0.8rem;">
-          Unduh Template (.DOCX / .TEX) &rarr;
-        </a>
-      </div>
     </aside>
 
-  </div>
-
-  <!-- 5. FOOTER: LISENSI & KONTAK -->
-  <footer id="informasi-kontak" role="contentinfo">
-    <div class="footer-container">
-      
-      <!-- Kolom 1: Profil Singkat -->
-      <div class="footer-col">
-        <h4>Tentang VERITAS</h4>
+    <footer>
         <p>
-          VERITAS adalah portal publikasi ilmiah independen yang diinisiasi untuk menampung riset inovatif, tugas akhir, serta karya tulis ilmiah mahasiswa pada jenjang sarjana &amp; pascasarjana.
+            &copy; 2026 Portal Publikasi Artikel Ilmiah Mahasiswa.
+            Semua hak cipta dilindungi sesuai ketentuan yang berlaku.
         </p>
-      </div>
 
-      <!-- Kolom 2: Lisensi Creative Commons -->
-      <div class="footer-col">
-        <h4>Lisensi Publikasi</h4>
-        <div class="cc-badge-box">
-          <p>
-            Seluruh artikel ilmiah yang dipublikasikan pada portal ini didistribusikan di bawah naungan lisensi:
-          </p>
-          <p style="margin-top: 0.5rem; font-weight: 600; color: #ffffff;">
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" style="color: var(--secondary-accent); text-decoration: none;">
-              Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)
+        <p>
+            Konten pada portal ini dilisensikan di bawah
+            <a href="https://creativecommons.org/licenses/by/4.0/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Creative Commons Attribution 4.0 International (CC BY 4.0)
+            </a>.
+        </p>
+
+        <p>
+            Kontak:
+            <a href="mailto:publikasi@example.com">
+                publikasi@example.com
             </a>
-          </p>
-          <p style="font-size: 0.8rem; margin-top: 0.4rem; color: #94a3b8;">
-            Anda bebas menyalin, membagikan, dan mengadaptasi materi untuk kepentingan non-komersial dengan atribusi yang tepat.
-          </p>
-        </div>
-      </div>
-
-      <!-- Kolom 3: Informasi Kontak Redaksi -->
-      <div class="footer-col">
-        <h4>Sekretariat &amp; Kontak Redaksi</h4>
-        <address>
-          <strong>Gedung Pusat Riset Mahasiswa, Lt. 3</strong><br>
-          Jl. Pendidikan Akademik No. 101, Kampus Tamalanrea<br>
-          Makassar, Sulawesi Selatan 90245<br><br>
-          <strong>Surel (Email):</strong> <a href="mailto:redaksi.veritas@kampus.ac.id">redaksi.veritas@kampus.ac.id</a><br>
-          <strong>Telepon / WhatsApp:</strong> <a href="tel:+628114440001">+62 811-4440-001</a><br>
-          <strong>Jam Operasional:</strong> Senin &ndash; Jumat, 08.00 &ndash; 16.00 WITA
-        </address>
-      </div>
-
-    </div>
-
-    <!-- Baris Hak Cipta Bawah -->
-    <div class="footer-bottom">
-      <p>
-        &copy; 2026 Portal Publikasi Artikel Ilmiah Mahasiswa (VERITAS). Hak cipta dilindungi undang-undang &amp; kode etik publikasi ilmiah.
-      </p>
-    </div>
-  </footer>
+        </p>
+    </footer>
 
 </body>
 </html>
+```
